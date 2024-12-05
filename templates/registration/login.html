@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="full-screen-container">
+    <div class="puzzle-grid">
+        <div class="puzzle-piece piece-5"></div>
+        <div class="puzzle-piece piece-3"></div>
+        <div class="puzzle-piece piece-8"></div>
+        <div class="puzzle-piece piece-12"></div>
+        <div class="puzzle-piece piece-1"></div>
+        <div class="puzzle-piece piece-7"></div>
+        <div class="puzzle-piece piece-2"></div>
+        <div class="puzzle-piece piece-9"></div>
+        <div class="puzzle-piece piece-4"></div>
+        <div class="puzzle-piece piece-10"></div>
+        <div class="puzzle-piece piece-6"></div>
+        <div class="puzzle-piece piece-14"></div>
+        <div class="puzzle-piece piece-11"></div>
+        <div class="puzzle-piece piece-15"></div>
+        <div class="puzzle-piece piece-16"></div>
+        <div class="puzzle-piece piece-13"></div>
+    </div>
+
+     <div class="auth-container">
+        <h2 class="welcome-text">Welcome</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="register-link">
+            <span class="dark-text">Don't have an account?</span>
+            <a href="{% url 'register' %}">Register here</a>
+        </div>
+
+        <div class="footer-links">
+            <a href="{% url 'home' %}" class="home-button">Home</a>
+        </div>
+
+
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

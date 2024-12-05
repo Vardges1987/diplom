@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Level List</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('{% static "images/logo.png" %}');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: #1e90ff;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        ul li a:hover {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available Levels</h1>
+        <ul>
+            {% for level in levels %}
+                <li>
+                    <a href="{% url 'game:puzzle_view' level_id=level.id %}">Level {{ level.id }} {{ level.name }}</a>
+                </li>
+            {% empty %}
+                <li>No levels available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="fullscreen-container"
+     style="background-image: url('{% static 'images/logo.png' %}'); background-size: cover;">
+
+    <div class="profile-container">
+        <h1 class="church-name" style="display: inline;">Welcome <strong>{{ user.username }}!</strong></h1>
+
+        <div class="puzzle-link">
+            <a href="{% url 'game:level_list' %}" class="profile-button">Go to Puzzle Levels</a>
+
+            {% if next_level_url %}
+                <a href="{{ next_level_url }}" class="profile-button">Go to Next Level</a>
+            {% endif %}
+        </div>
+
+
+        <div class="profile-actions">
+            <a href="{% url 'edit_profile' %}" class="profile-button">Edit Profile</a>
+            <a href="{% url 'logout' %}" class="profile-button">Logout</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

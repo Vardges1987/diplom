@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Question{% endblock %}
+
+{% block content %}
+  <style>
+    body {
+      background: url("{% static background_image %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .home-button-container {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .home-button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .home-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <h2>Level {{ level.id }}: What building is this?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="answer" placeholder="Your answer" required>
+    <button type="submit">Submit Answer</button>
+  </form>
+
+  <div class="home-button-container">
+    <a href="{% url 'home' %}" class="home-button">Home</a>
+  </div>
+{% endblock %}

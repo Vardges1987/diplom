@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Assemble the Puzzle</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        #reset-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+
+        #BacktoLevels-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .puzzle-area {
+            display: grid;
+            gap: 0;
+            background-color: #f0f0f0;
+            padding: 5px;
+            border: 7px solid brown;
+        }
+
+        .puzzle-piece {
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .puzzle-piece:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+        }
+
+        .pieces-container {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            padding: 35px;
+        }
+
+        .side-piece {
+            cursor: grab;
+            transition: transform 0.2s;
+        }
+
+        .side-piece:active {
+            transform: scale(1.03);
+        }
+
+
+
+    </style>
+</head>
+<body>
+<h1>Assemble the Puzzle</h1>
+
+<div class="main-container" id="main-container" data-level-id="{{ level_id }}">
+    <div class="puzzle-area" id="puzzle-area"
+         style="grid-template-columns: repeat({{ columns }}, {{ piece_width }}px); grid-template-rows: repeat({{ rows }}, {{ piece_height }}px);">
+        {% for piece in puzzle_pieces %}
+        <div class="puzzle-piece drop-zone" style="width: {{ piece_width }}px; height: {{ piece_height }}px;"
+             ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        {% endfor %}
+    </div>
+
+    <div class="pieces-container" id="pieces-container">
+        {% for piece in puzzle_pieces %}
+        <img src="{{ piece.image.url }}"
+             class="puzzle-piece side-piece"
+             style="width: {{ piece_width }}px; height: {{ piece_height }}px;"
+             draggable="true"
+             id="piece-{{ forloop.counter }}"
+             ondragstart="drag(event)">
+        {% endfor %}
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function shufflePieces() {
+            const piecesContainer = document.getElementById('pieces-container');
+            const pieces = Array.from(piecesContainer.children);
+
+            for (let i = pieces.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pieces[i], pieces[j]] = [pieces[j], pieces[i]];
+            }
+
+            pieces.forEach(piece => piecesContainer.appendChild(piece));
+        }
+
+        shufflePieces();
+    });
+
+
+
+    </script>
+
+
+    <button id="reset-button" onclick="resetPuzzle()">Reset puzzle</button>
+    <button id="BacktoLevels-button" onclick="goToLevels()">Back to Levels</button>
+</div>
+
+<script>
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        const pieceId = event.dataTransfer.getData("text");
+        const piece = document.getElementById(pieceId);
+        const targetZone = event.target;
+
+        // Проверка, куда перетаскиваем кусок
+        if (targetZone.classList.contains('drop-zone') && !targetZone.hasChildNodes()) {
+            if (!isOverlapping(piece, targetZone)) {
+                targetZone.appendChild(piece);
+                checkCompletion();
+            }
+        }
+    }
+
+    function isOverlapping(piece, targetZone) {
+        const pieceRect = piece.getBoundingClientRect();
+        const targetRect = targetZone.getBoundingClientRect();
+
+        return !(
+            pieceRect.right <= targetRect.left ||
+            pieceRect.left >= targetRect.right ||
+            pieceRect.bottom <= targetRect.top ||
+            pieceRect.top >= targetRect.bottom
+        );
+    }
+
+    function isPieceOverlappingAnywhere(piece) {
+        const dropZones = document.querySelectorAll('.drop-zone');
+        for (const zone of dropZones) {
+            if (zone !== piece.parentElement && isOverlapping(piece, zone) && zone.hasChildNodes()) {
+                return true;  // Если кусок перекрывает уже занятые зоны
+            }
+        }
+        return false;
+    }
+
+    function resetPuzzle() {
+        const pieces = document.querySelectorAll('.side-piece');
+        const container = document.getElementById('pieces-container');
+        pieces.forEach(piece => {
+            container.appendChild(piece);
+        });
+    }
+
+     function goToLevels() {
+        window.location.href = "{% url 'game:level_list' %}";
+        const pieces = document.querySelectorAll('.side-piece');
+        const container = document.getElementById('pieces-container');
+        pieces.forEach(piece => {
+            container.appendChild(piece);
+        });
+    }
+
+
+    function checkCompletion() {
+        const dropZones = document.querySelectorAll('.drop-zone');
+        let completed = true;
+
+        dropZones.forEach(zone => {
+            if (!zone.hasChildNodes()) {
+                completed = false;
+            }
+        });
+
+        if (completed) {
+            dropZones.forEach(zone => zone.innerHTML = '');
+
+            const button = document.createElement('button');
+            button.innerText = 'Go to the question';
+            button.id = 'question-button';
+            button.onclick = function() {
+                goToQuestion();
+            };
+
+            const mainContainer = document.getElementById('puzzle-area');
+            mainContainer.style.display = 'flex';
+            mainContainer.style.flexDirection = 'column';
+            mainContainer.style.alignItems = 'center';
+            mainContainer.style.justifyContent = 'center';
+            mainContainer.style.height = '22vh';
+            mainContainer.style.width = '22vh';
+
+            mainContainer.appendChild(button);
+        }
+    }
+
+
+
+    function goToQuestion() {
+        const levelId = document.getElementById('main-container').dataset.levelId;
+        window.location.href = `/game/puzzle/${levelId}/question/`;
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="fullscreen-container" style="background-image: url('{% static 'images/logo.png' %}'); background-size: cover;">
+    <h1 class="church-name">Welcome to Church Puzzle</h1>
+    <div class="container">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+    </div>
+</div>
+{% endblock %}

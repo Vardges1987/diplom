@@ -1,0 +1,524 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fullscreen-container {
+    position: relative;
+    width: 97vw;
+    height: 98vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f5f5f5;
+}
+
+.fullscreen-logo {
+    max-width: 80vw;
+    max-height: 70vh;
+    object-fit: contain;
+    z-index: 1;
+}
+
+
+.full-screen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.nav-bar {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 2;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-bar a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.church-name {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    font-size: clamp(1.5rem, 2.5vw, 3rem);
+    color: #1a1919
+    text-align: center;
+    z-index: 1;
+}
+
+.church-name strong {
+    margin-left: 5px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .nav-bar a {
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+
+    .fullscreen-logo {
+        max-width: 80%;
+        max-height: 50%;
+    }
+
+    .church-name {
+        font-size: 1.5em;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .fullscreen-logo {
+        max-width: 70%;
+        max-height: 60%;
+    }
+
+    .church-name {
+        font-size: 1.8em;
+    }
+}
+
+@media (min-width: 1025px) {
+    .fullscreen-logo {
+        max-width: 60%;
+        max-height: 70%;
+    }
+
+    .church-name {
+        font-size: 2em;
+    }
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin: 40px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: 1.2rem;
+}
+
+a:hover {
+    background-color: #388E3C;
+}
+
+.auth-container {
+    display: block;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    padding: 55px;
+}
+
+.auth-container h2 {
+    text-align: center;
+    font-size: 3rem;
+    color: #080808;
+    margin-bottom: 20px;
+}
+
+.auth-container label {
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-container input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 3px solid #ddd;
+    border-radius: 11px;
+    width: 300px;
+    margin-left: 37px;
+}
+
+.auth-container button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-container button:hover {
+    background-color: #388E3C;
+}
+
+.home-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 333px;
+    margin-bottom: 20px;
+}
+
+.home-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+}
+
+.home-button:hover {
+    background-color: #45a049;
+}
+
+
+.register-link {
+    display: inline-flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: #000000;
+    font-size: 1.1rem;
+    padding-left: 30px;
+}
+
+.register-link a {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+
+.login-link {
+    display: inline-flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: #000000;
+    font-size: 1.1rem;
+    padding-left: 30px;
+}
+
+.login-link a {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    gap: 3px;
+    z-index: -1;
+}
+
+.puzzle-piece {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ddd;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.puzzle-piece:hover {
+    transform: scale(1.05);
+}
+
+
+.piece-1 { background-image: url('/static/images/logo-part-1.png'); }
+.piece-2 { background-image: url('/static/images/logo-part-2.png'); }
+.piece-3 { background-image: url('/static/images/logo-part-3.png'); }
+.piece-4 { background-image: url('/static/images/logo-part-4.png'); }
+.piece-5 { background-image: url('/static/images/logo-part-5.png'); }
+.piece-6 { background-image: url('/static/images/logo-part-6.png'); }
+.piece-7 { background-image: url('/static/images/logo-part-7.png'); }
+.piece-8 { background-image: url('/static/images/logo-part-8.png'); }
+.piece-9 { background-image: url('/static/images/logo-part-9.png'); }
+.piece-10 { background-image: url('/static/images/logo-part-10.png'); }
+.piece-11 { background-image: url('/static/images/logo-part-11.png'); }
+.piece-12 { background-image: url('/static/images/logo-part-12.png'); }
+.piece-13 { background-image: url('/static/images/logo-part-13.png'); }
+.piece-14 { background-image: url('/static/images/logo-part-14.png'); }
+.piece-15 { background-image: url('/static/images/logo-part-15.png'); }
+.piece-16 { background-image: url('/static/images/logo-part-16.png'); }
+
+
+.dark-black-text {
+    color: #000;
+    font-weight: bold;
+    font-size: 31px;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+
+.profile-details p {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.profile-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.profile-button:hover {
+    background-color: #45a049;
+    color: red;
+}
+
+.home-button-container {
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+    .puzzle-image {
+        width: 100%;
+    }
+}
+
+
+.puzzle-solved-message {
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.puzzle-solved-message h2 {
+    font-family: 'Arial', sans-serif;
+    color: #4CAF50;
+}
+
+.puzzle-description {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.next-level-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.next-level-button:hover {
+    background-color: #45a049;
+}
+
+
+img {
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+}
+
+
+body {
+    background-image: url('{% static "images/logo_1_level.png" %}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.background {
+    background-image: url('{% static 'static/images/level_1.png' %}');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #75d165;
+    margin: 0;
+}
+
+
+.login-form-container {
+    display: block;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    padding: 55px;
+}
+
+.login-form-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 33px;
+}
+
+.login-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-form-container input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 3px solid #ddd;
+    border-radius: 5px;
+    width: 300px;
+    margin-left: 50px;
+}
+
+.login-form-container button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-form-container button:hover {
+    background-color: #388E3C;
+}
+
+
+.puzzle-piece {
+    background-color: lightblue;
+    border: 2px solid #333;
+}
+
+
+.piece-1 { background-image: url('/static/images/logo-part-1.png'); }
+.piece-2 { background-image: url('/static/images/logo-part-2.png'); }
+.piece-3 { background-image: url('/static/images/logo-part-3.png'); }
+.piece-4 { background-image: url('/static/images/logo-part-4.png'); }
+.piece-5 { background-image: url('/static/images/logo-part-5.png'); }
+.piece-6 { background-image: url('/static/images/logo-part-6.png'); }
+.piece-7 { background-image: url('/static/images/logo-part-7.png'); }
+.piece-8 { background-image: url('/static/images/logo-part-8.png'); }
+.piece-9 { background-image: url('/static/images/logo-part-9.png'); }
+.piece-10 { background-image: url('/static/images/logo-part-10.png'); }
+.piece-11 { background-image: url('/static/images/logo-part-11.png'); }
+.piece-12 { background-image: url('/static/images/logo-part-12.png'); }
+.piece-13 { background-image: url('/static/images/logo-part-13.png'); }
+.piece-14 { background-image: url('/static/images/logo-part-14.png'); }
+.piece-15 { background-image: url('/static/images/logo-part-15.png'); }
+.piece-16 { background-image: url('/static/images/logo-part-16.png'); }
+
+.dark-text {
+    color: #000000;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+
+
+
+
+
+

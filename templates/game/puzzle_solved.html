@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Puzzle Solved!{% endblock %}
+
+{% block content %}
+  <style>
+    body {
+      background: url("{% static background_image %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+  </style>
+<div class="puzzle-solved-message">
+    <h2>Congratulations!</h2>
+    <p class="puzzle-description">
+        {{ description }}
+    </p>
+
+    {% if next_level %}
+        <a href="{% url 'game:next_level' next_level.number %}" class="next-level-button">Next Level</a>
+    {% else %}
+        <p>No more levels available.</p>
+    {% endif %}
+</div>
+{% endblock %}
